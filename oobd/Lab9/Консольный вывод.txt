@@ -1,0 +1,27 @@
+Hibernate: create table Apteka (id int8 not null, address varchar(255), name varchar(255), primary key (id))
+Hibernate: create table Apteka_Area (Apteka_id int8 not null, areas_id int8 not null)
+Hibernate: create table Apteka_Pharmacists (Apteka_id int8 not null, pharmacists_id int8 not null)
+Hibernate: create table Apteka_Client (Apteka_id int8 not null, clients_id int8 not null)
+Hibernate: create table Drug (id int8 not null, name varchar(255), primary key (id))
+Hibernate: create table Pharmacists (id int8 not null, specialty varchar(255), area_id int8, primary key (id))
+Hibernate: create table Client (id int8 not null, area_id int8, primary key (id))
+Hibernate: create table Client_Drug (Client_id int8 not null, drug_id int8 not null)
+
+Hibernate: alter table if exists Apteka_Area add constraint UK_8chs0q4geiemcydaao1mb8r89 unique (areas_id)
+Hibernate: alter table if exists Apteka_Area add constraint FKd3jjd96ro0b6997a13afa6xyj foreign key (areas_id) references Area
+Hibernate: alter table if exists Apteka_Area add constraint FKskn28clp0p56h4v8xij0l1q8k foreign key (Apteka_id) references Apteka 
+
+Hibernate: alter table if exists Apteka_Pharmacists add constraint UK_cd3a8wko5yys4lte5dx8buqay unique (pharmacists_id)
+Hibernate: alter table if exists Apteka_Pharmacists add constraint FKce5ny5gvk0f7m8e3nk07h4asr foreign key (pharmacists_id) references Pharmacists 
+Hibernate: alter table if exists Apteka_Pharmacists add constraint FK2nrau4luga7sdidq5u6xq3w5v foreign key (Apteka_id) references Apteka 
+
+Hibernate: alter table if exists Apteka_Client add constraint UK_kjpumi4pelu221ltbxkxgvkpe unique (clients_id)
+Hibernate: alter table if exists Apteka_Client add constraint FKqucxxsclfxwqbmqfj1lnxlw8o foreign key (clients_id) references Client
+Hibernate: alter table if exists Apteka_Client add constraint FKa1bpsppbtfqy368h8yxk2u5w3 foreign key (Apteka_id) references Apteka 
+
+Hibernate: alter table if exists Client_Drug add constraint UK_odi5ybp4gy64eo4h7ly02olx0 unique (drug_id)
+Hibernate: alter table if exists Client_Drug add constraint FKkxxri69x7upgniolyavlkltq5 foreign key (drug_id) references Drug
+Hibernate: alter table if exists Client_Drug add constraint FKrlt1rg6pskc3cgki3dp0ocjm1 foreign key (Client_id) references Client
+
+Hibernate: alter table if exists Pharmacists add constraint FKirs76m6p5vlfkmm97ov45xrd6 foreign key (area_id) references Area
+Hibernate: alter table if exists Client add constraint FKg4l2p9g95galnn55s4xxlqsya foreign key (area_id) references Area
